@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import YTSearch from 'youtube-api-search';
+import searchYoutube  from 'youtube-api-v3-search';
 import SearchBar from './SearchBar';
 import VideoList from './VideoList';
 import VideoDetail from './VideoDetail';
 
-const YOU_TUBE_API_KEY = 'AIzaSyAnV4-rYQWehdoEXQf0ODyhNPWCDi-UEEM';
+const YOU_TUBE_API_KEY = 'AIzaSyCZQ5fS7QfFmXkwmq0BJEY4L92JYZ4X7jE';
 
 class YouTubeSearch extends Component {
   constructor(props) {
@@ -17,25 +17,22 @@ class YouTubeSearch extends Component {
   }
 
   componentDidMount() {
-    this.videoSearch('Punith');
+    this.videoSearch('React Proramming');
   }
 
   onVideoSelected = (selectedVideo) => {
     this.setState({ selectedVideo });
   }
-
+  
   videoSearch = (searchString) => {
-    YTSearch({ key: YOU_TUBE_API_KEY, term: searchString }, (videos) => {
-      this.setState({
-        videos: videos,
-        selectedVideo: videos[0]
-      });
-    });
+     searchYoutube(YOU_TUBE_API_KEY, {q: searchString, type: 'video'})
+     .then(data => { this.setState({videos: data.items, selectedVideo: data.items[0]})})
+     .catch(err => console.log(err));
   }
 
   render() {
     return (
-      <div>
+      <div className="container">
         <SearchBar onVideoSearch={this.videoSearch} />
         <VideoDetail video={this.state.selectedVideo} />
         <VideoList onVideoSelect={this.onVideoSelected} videos={this.state.videos} />

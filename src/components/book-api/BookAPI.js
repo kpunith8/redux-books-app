@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import BookList from './BookList';
-import BookDetail from './BookDetail';
+import React, { Component } from "react";
+import BookList from "./BookList";
+import BookDetail from "./BookDetail";
 
 class BookAPI extends Component {
   render() {
@@ -9,7 +9,7 @@ class BookAPI extends Component {
         <BookList />
         <BookDetail />
       </div>
-    )
+    );
   }
 }
 
